@@ -18,7 +18,7 @@ jobs:
 
     steps:
       - name: test steps
-        run: echo "hello" 
+        run: echo "${{vars.my_name}}" 
   deploy:  
        needs: test
        runs-on: ubuntu-latest
