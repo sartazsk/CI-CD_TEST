@@ -10,3 +10,10 @@ jobs:
     steps:
       - name: build steps
         run: echo "hello"
+ jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: test steps
+        run: echo "hello"       
