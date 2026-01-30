@@ -1,0 +1,12 @@
+name: demo ci
+
+on:
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: build steps
+        run: echo "hello"
