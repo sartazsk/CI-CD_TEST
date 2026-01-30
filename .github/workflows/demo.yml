@@ -1,7 +1,8 @@
 name: demo ci
 
 on:
-  workflow_dispatch:
+  push:
+    
 
 jobs:
   build:
@@ -17,4 +18,12 @@ jobs:
 
     steps:
       - name: test steps
-        run: echo "hello"       
+        run: echo "hello" 
+  deploy:  
+       needs: test
+       runs-on: ubuntu-latest
+       
+       steps:
+          - name: test steps
+            run: echo "succed the CI/CD"
+
