@@ -1,4 +1,4 @@
-name: demo ci
+name: demo mail  ci/cd
 
 on:
   push:
@@ -26,4 +26,26 @@ jobs:
        steps:
           - name: test steps
             run: echo "succed the CI/CD"
+          - name: Send email on success
+            if: success()
+            uses: dawidd6/action-send-mail@v3
+            with:
+              server_address: smtp.gmail.com
+              server_port: 587
+              username: ${{ secrets.EMAIL_USERNAME }}
+              password: ${{ secrets.EMAIL_PASSWORD }}
+              subject: "GitHub Actions Job Successful ✅"
+              body: |
+                Hello,
+
+                 The GitHub Actions job has completed successfully 🎉
+
+                 Repository: ${{ github.repository }}
+                  Branch: ${{ github.ref_name }}
+                  Workflow: ${{ github.workflow }}
+
+                 Regards,
+                 GitHub Actions
+                 to: shaikhsartaz425@gmail.com
+                 from: GitHub Actions <ssks7352@gmail.com>
 
