@@ -1,51 +1,50 @@
-name: demo mail  ci/cd
+name: demo mail ci/cd
 
 on:
   push:
-    
 
 jobs:
   build:
     runs-on: ubuntu-latest
-
     steps:
       - name: build steps
         run: echo "hello"
- 
+
   test:
     needs: build
     runs-on: ubuntu-latest
-
     steps:
       - name: test steps
-        run: echo "${{vars.my_name}}" 
-  deploy:  
-       needs: test
-       runs-on: ubuntu-latest
-       
-       steps:
-          - name: test steps
-            run: echo "succed the CI/CD"
-          - name: Send email on success
-            if: success()
-            uses: dawidd6/action-send-mail@v3
-            with:
-              server_address: smtp.gmail.com
-              server_port: 587
-              username: ${{ secrets.EMAIL_USERNAME }}
-              password: ${{ secrets.EMAIL_PASSWORD }}
-              subject: "GitHub Actions Job Successful ✅"
-              body: |
-                Hello,
+        run: echo "${{ vars.my_name }}"
 
-                 The GitHub Actions job has completed successfully 🎉
+  deploy:
+    needs: test
+    runs-on: ubuntu-latest
+    steps:
+      - name: deploy steps
+        run: echo "succeeded the CI/CD"
 
-                 Repository: ${{ github.repository }}
-                  Branch: ${{ github.ref_name }}
-                  Workflow: ${{ github.workflow }}
+      - name: Send email on success
+        if: success()
+        uses: dawidd6/action-send-mail@v3
+        with:
+          server_address: smtp.gmail.com
+          server_port: 587
+          username: ${{ secrets.EMAIL_USERNAME }}
+          password: ${{ secrets.EMAIL_PASSWORD }}
+          subject: "GitHub Actions Job Successful ✅"
+          body: |
+            Hello,
 
-                 Regards,
-                 GitHub Actions
-                 to: shaikhsartaz425@gmail.com
-                 from: GitHub Actions <ssks7352@gmail.com>
+            The GitHub Actions job has completed successfully 🎉
+
+            Repository: ${{ github.repository }}
+            Branch: ${{ github.ref_name }}
+            Workflow: ${{ github.workflow }}
+
+            Regards,
+            GitHub Actions
+          to: shaikhsartaz425@gmail.com
+          from: GitHub Actions <ssks7352@gmail.com>
+
 
